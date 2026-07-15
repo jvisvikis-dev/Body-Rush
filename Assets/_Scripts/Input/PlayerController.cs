@@ -112,4 +112,16 @@ public class PlayerController : MonoBehaviour
         allowedMovement = !allowedMovement;
     }
 
+    public void OnTriggerEnter(Collider collision)
+    {
+        Debug.Log(collision.gameObject);
+        NPCBody body = collision.gameObject.GetComponent<NPCBody>();
+        if (body)
+            body.Explode(this);
+    }
+
+
+
+
+
 }
