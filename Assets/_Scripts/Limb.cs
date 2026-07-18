@@ -10,7 +10,7 @@ public class Limb : MonoBehaviour
     [SerializeField] private float lerpTime;
     [SerializeField] private AnimationCurve lerpCurve;
     private bool attached = true;
-
+    private bool partOfPlayer = false;
     private void OnEnable()
     {
         body.Detach += Detach;
@@ -41,6 +41,7 @@ public class Limb : MonoBehaviour
             rigidbody.isKinematic = true;
             gameObject.tag = "Player";
             attached = true;
+            partOfPlayer = true;
         }
     }
 
@@ -57,6 +58,14 @@ public class Limb : MonoBehaviour
             rigidbody.position = Vector3.Slerp(startPos, target.transform.position, lerpCurve.Evaluate(timer / lerpTime));
             yield return null;
         }
+    }
+    public void OnTriggerEnter(Collider collision)
+    {
+        if (!partOfPlayer)
+            return;
+        NPCBody body = collision.gameObject.GetComponent<NPCBody>();
+        if (body)
+            body.Explode();
     }
 
 }

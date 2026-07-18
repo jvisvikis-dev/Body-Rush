@@ -41,13 +41,11 @@ public class NPCBody : MonoBehaviour
                     RunFrom(player.transform);
                     idleTimer = 0;
                     state = NPCState.Running;
-                    Debug.Log(state);
                 }
                 if (idleTimer >= waitTime) {
                     SetValidPath();
                     idleTimer = 0;
                     state = NPCState.Walking;
-                    Debug.Log(state);
                 }
                 else
                     idleTimer += Time.deltaTime;
@@ -59,7 +57,6 @@ public class NPCBody : MonoBehaviour
                 {
                     RunFrom(player.transform);
                     state = NPCState.Running;
-                    Debug.Log(state);
                 }
                 CheckToIdle();
 
@@ -91,7 +88,6 @@ public class NPCBody : MonoBehaviour
             waitTime = UnityEngine.Random.Range(0, maxWaitTime);
 
             state = NPCState.Idle;
-            Debug.Log(state);
         }
     }
     private void RunFrom(Transform runAwayTarget)
@@ -102,12 +98,10 @@ public class NPCBody : MonoBehaviour
         agent.SetDestination(newPosition);
         if(agent.isPathStale)
         {
-            Debug.Log("Go right");
             agent.SetDestination(transform.right * 2f);
         }
         if (agent.isPathStale)
         {
-            Debug.Log("Go left");
             agent.SetDestination(-transform.right * 2f);
         }
         if (agent.isPathStale)
@@ -124,7 +118,7 @@ public class NPCBody : MonoBehaviour
             agent.SetDestination(WorldBounds.Instance.GetRand());
         }
     }
-    public void Explode(PlayerController player)
+    public void Explode()
     {
         foreach (Limb limb in limbs)
         {

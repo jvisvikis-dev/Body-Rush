@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log(collision.gameObject);
         NPCBody body = collision.gameObject.GetComponent<NPCBody>();
         if (body)
-            body.Explode(this);
+            body.Explode();
     }
 
 
